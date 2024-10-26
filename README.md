@@ -17,3 +17,5 @@ I programmed the FPGA over USB port "US1" and uploaded the _.bit_-files via _fuj
 Commands used to generate a _.bit_-file: [deploy.bat](deploy.bat). 
 
 ### Learning Verilog
+
+To keep it short: very special thanks to [nandland.com](https://nandland.com/).
