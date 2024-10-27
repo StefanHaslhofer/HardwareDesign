@@ -1,7 +1,7 @@
 # Hardware Design: ESP32 communication
 
 ## How to start?
-In this section I will document findings and problems that occured during my work on this project.
+In this section I will document findings and problems that occured during my preparation work on this project.
 
 My first big question mark was where I should start. My knowledge about hardware design and FPGAs is limited and I only have basic understanding of VHDL. I didn't even know how to write and compile code for the FPGA.
 
@@ -22,9 +22,11 @@ To keep it short: very special thanks to [nandland.com](https://nandland.com/).
 
 ### Program the ESP32
 
-The ESP32 can be programmed using the passthru bitstream. The whole process is described in the [ULX3S manual](https://github.com/emard/ulx3s/blob/master/doc/MANUAL.md).
+The ULX3S' on-board ESP32 can be programmed using the passthru bitstream. The whole process is described in the [ULX3S manual](https://github.com/emard/ulx3s/blob/master/doc/MANUAL.md).
 
 ## Implementation
+This section highlights the most important core concepts of my project implementation as well as encountered problems and how I solved them.
 
-### 
+### Core Concept
+I chose a memory mapped I/O approach for communication between a singly-cycle RISC-V core (running on the FPGA) and the on-board ESP32. 
 
