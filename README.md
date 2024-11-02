@@ -5,7 +5,7 @@ In this section I will document findings and problems that occured during my pre
 
 My first big question mark was where I should start. My knowledge about hardware design and FPGAs is limited and I only have basic understanding of VHDL. I didn't even know how to write and compile code for the FPGA.
 
-Therefore, I studied ulx3s' manual and subsequently the yosys toolchain documentation. In order to get a better understanding of the whole system and the toolchain, I tried implementing the "Hello world!" of hardware: blinky. I used Verilog, because I already knew VHDL (which I do not really like to put it mildly) and wanted to experience something new.
+Therefore, I studied ulx3s' manual and subsequently the yosys toolchain documentation. In order to get a better understanding of the whole system and the toolchain, I tried implementing the "Hello world!" of hardware: blinky.
 
 ### Using the Toolchain
 After implementing my [blinky](blinky.v)  I needed to compile it to a _.bit_-file. Therefore, I studied the _5.2_rtl_to_silicon_ slides. I watched a video on [HDL synthesis with Yosys](https://www.youtube.com/watch?v=rVftXFl5tHs) by Clifford Wolf and figured out I needed to use the synth command, which executes similar commands to the synthesis script descibed in the slides. It is also worth mentioning that the board uses a ECP5 series FPGA, for which yosys provides a specific synth command (_synth_ecp5_). Afterwards, I used nextpnr for place and route, which takes a JSON as input. After reading the _synth_ecp5_ commands help page, I generated the json via the _-json_ option.
@@ -16,17 +16,15 @@ I programmed the FPGA over USB port "US1" and uploaded the _.bit_-files via _fuj
 
 Commands used to generate a _.bit_-file: [deploy.bat](deploy.bat). 
 
-### Learning Verilog
-
+### (Re)learning VHDL
 To keep it short: very special thanks to [nandland.com](https://nandland.com/).
 
 ### Program the ESP32
-
 The ULX3S' on-board ESP32 can be programmed using the passthru bitstream. The whole process is described in the [ULX3S manual](https://github.com/emard/ulx3s/blob/master/doc/MANUAL.md).
 
 ## Implementation
 This section highlights the most important core concepts of my project implementation as well as encountered problems and how I solved them.
 
 ### Core Concept
-I chose a memory mapped I/O approach for communication between a singly-cycle RISC-V core (running on the FPGA) and the on-board ESP32. 
+I chose a memory mapped I/O approach for communication between a RISC-V core (running on the FPGA) and the on-board ESP32. I did not implement the RISC-V core by myself but rather used code provided in the lecture _Rechnerarchitektur_.
 
