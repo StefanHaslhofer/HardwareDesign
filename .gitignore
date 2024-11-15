@@ -2,3 +2,5 @@
 *.json
 *.vhd
 !rtl/mmiocontroller.vhd
+!rtl/dmem.vhd
+!rtl/top.vhd
