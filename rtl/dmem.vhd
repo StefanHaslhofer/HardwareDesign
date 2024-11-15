@@ -11,8 +11,8 @@ entity dmem is -- data memory
        a:   in  STD_ULOGIC_VECTOR(31 downto 0);
        wd:  in  STD_ULOGIC_VECTOR(31 downto 0);
        rd:  out STD_ULOGIC_VECTOR(31 downto 0);
-       rioc:  in STD_ULOGIC_VECTOR(7 downto 0);
-       wioc:  out STD_ULOGIC_VECTOR(7 downto 0));
+       rioc:  in STD_ULOGIC;
+       wioc:  out STD_ULOGIC);
 end;
 
 architecture behave of dmem is
@@ -41,7 +41,7 @@ begin
         end if;
 
         -- read 8 bit of data from mmio controller and store it at certain position
-        dmem_s(255) := rioc(7 downto 0);
+        dmem_s(255) := rioc;
       end if;
       rd <= (others => '0');
       if (sel="00") then  -- 8 bit data width

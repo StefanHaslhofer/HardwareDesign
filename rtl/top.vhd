@@ -53,8 +53,8 @@ architecture test of top is
          a:   in  STD_ULOGIC_VECTOR(31 downto 0);
          wd:  in  STD_ULOGIC_VECTOR(31 downto 0);
          rd:  out STD_ULOGIC_VECTOR(31 downto 0);
-         rioc:  in STD_ULOGIC_VECTOR(7 downto 0);
-         wioc:  out STD_ULOGIC_VECTOR(7 downto 0));
+         rioc:  in STD_ULOGIC;
+         wioc:  out STD_ULOGIC);
   end component;
     
   signal PC:        STD_ULOGIC_VECTOR(31 downto 0);
