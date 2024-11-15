@@ -1,3 +1,4 @@
 *.config
 *.json
-rtl/
+*.vhd
+!rtl/mmiocontroller.vhd

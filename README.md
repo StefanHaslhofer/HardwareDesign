@@ -28,5 +28,7 @@ This section highlights the most important core concepts of my project implement
 ### Core Concept
 I chose a memory mapped I/O approach for communication between a RISC-V core (running on the FPGA) and the on-board ESP32. I did not implement the RISC-V core by myself but rather used code provided in the lecture _Rechnerarchitektur_.
 
-In contrast to my blinky example, the RISC-V core consists of multiple VHDL files.
+In contrast to my blinky example, the RISC-V core consists of multiple VHDL files, which can be handled by yosys. 
+
+In order to establish communication between the ESP32 and the core I needed to find possible connection. Accordion to the [ULX3S manual](https://github.com/emard/ulx3s/blob/master/doc/MANUAL.md) J1 pins GP,GN 11-13 are shared with the ESP32. I then allocated a designated area in the [memory](rtl/dmem.vhd) for data sent/recieved via those pin connections.
 
