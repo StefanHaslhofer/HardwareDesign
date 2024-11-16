@@ -12,7 +12,8 @@ entity dmem is -- data memory
        wd:  in  STD_ULOGIC_VECTOR(31 downto 0);
        rd:  out STD_ULOGIC_VECTOR(31 downto 0);
        rioc:  in STD_ULOGIC;
-       wioc:  out STD_ULOGIC);
+       wioc:  out STD_ULOGIC;
+       led: out STD_ULOGIC_VECTOR(7 downto 0));
 end;
 
 architecture behave of dmem is
@@ -40,8 +41,9 @@ begin
           end if;
         end if;
 
-        -- read 8 bit of data from mmio controller and store it at certain position
-        dmem_s(255) := rioc;
+        -- read 8 bit of data from gpio pin and store it at certain position
+        dmem_s(255)(0) := rioc;
+        led(3) <= rioc;
       end if;
       rd <= (others => '0');
       if (sel="00") then  -- 8 bit data width
@@ -56,9 +58,9 @@ begin
         rd(31 downto 24) <= dmem_s(to_integer(a(addr_width-1 downto 0))+3);
       end if;
 
-      -- read 8 bit of data and write to mmio controller if stored at certain position
+      -- read 8 bit of data and write to gpio pin if stored at certain position
       if (to_integer(a(addr_width-1 downto 0))=254) then
-        wioc(7 downto 0) <= dmem_s(to_integer(a(addr_width-1 downto 0)));
+        -- wioc(7 downto 0) <= dmem_s(to_integer(a(addr_width-1 downto 0)));
       end if;
   end process;
 end;

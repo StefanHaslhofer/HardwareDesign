@@ -25,7 +25,8 @@ entity top is -- top-level design for testing
        WriteData: buffer STD_ULOGIC_VECTOR(31 downto 0);
        DataAdr:   buffer STD_ULOGIC_VECTOR(31 downto 0);
        MemWrite:  buffer STD_ULOGIC;
-       gp, gn: inout std_logic_vector(27 downto 0));
+       gp, gn: inout STD_ULOGIC_VECTOR(27 downto 0);
+       led: out STD_ULOGIC_VECTOR(7 downto 0));
 end;
 
 architecture test of top is
@@ -54,7 +55,8 @@ architecture test of top is
          wd:  in  STD_ULOGIC_VECTOR(31 downto 0);
          rd:  out STD_ULOGIC_VECTOR(31 downto 0);
          rioc:  in STD_ULOGIC;
-         wioc:  out STD_ULOGIC);
+         wioc:  out STD_ULOGIC;
+         led: out STD_ULOGIC_VECTOR(7 downto 0));
   end component;
     
   signal PC:        STD_ULOGIC_VECTOR(31 downto 0);
@@ -68,5 +70,5 @@ begin
   rvsingle: entity work.riscvpipeline(struct_neg) port map(clk_25mhz, reset, PC, Instr, MemWrite, DataAdr, MemSel, WriteData, ReadData);
   --rvsingle: riscvpipeline port map(clk, reset, PC, Instr, MemWrite, DataAdr, MemSel, WriteData, ReadData);
   imem1: imem port map(PC, Instr);
-  dmem1: dmem port map(clk_25mhz, MemWrite, MemSel, DataAdr, WriteData, ReadData, gp(11));
+  dmem1: dmem port map(clk_25mhz, MemWrite, MemSel, DataAdr, WriteData, ReadData, gp(11), gp(13), led);
 end;

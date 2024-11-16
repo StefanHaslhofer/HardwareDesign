@@ -1,0 +1,1 @@
+fujprog ulx3s.bit
