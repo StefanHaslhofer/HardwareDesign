@@ -5,6 +5,9 @@ use IEEE.NUMERIC_STD_UNSIGNED.all;
 
 entity dmem is -- data memory
   generic(addr_width: integer := 8);
+  generic(ESP32_OUT: integer := 254);
+  generic(ESP32_IN: integer := 255);
+  generic(addr_width: integer := 8);
   port(clk_25mhz: in  STD_ULOGIC;
        we:  in  STD_ULOGIC;
        sel: in  STD_ULOGIC_VECTOR(1 downto 0);
@@ -39,13 +42,21 @@ begin
             dmem_s(to_integer(a(addr_width-1 downto 0))+3) := wd(31 downto 24);
             -- assert (a(1 downto 0) = "00") report "memory address alignment missmatch for word access" severity error;
           end if;
+
+          -- forward LSB from wd signal to gpio pin if a designated memory location has been written
+          if (to_integer(a(addr_width-1 downto 0))=ESP32_OUT) then
+            wioc <= wd(0);
+          end if;
         end if;
 
-        -- read 8 bit of data from gpio pin and store it at certain position
-        dmem_s(255)(0) := rioc;
+        -- write bit from gpio pin to a designated position in memory
+        dmem_s(ESP32_IN)(0) := rioc;
+        -- additionally light up led to verify that we recieved data
         led(3) <= rioc;
       end if;
+
       rd <= (others => '0');
+      led <= (others => '0');
       if (sel="00") then  -- 8 bit data width
         rd(7 downto 0)   <= dmem_s(to_integer(a(addr_width-1 downto 0)));
       elsif (sel="01") then -- 16 bit data width
@@ -56,11 +67,6 @@ begin
         rd(15 downto 8)  <= dmem_s(to_integer(a(addr_width-1 downto 0))+1);
         rd(23 downto 16) <= dmem_s(to_integer(a(addr_width-1 downto 0))+2);
         rd(31 downto 24) <= dmem_s(to_integer(a(addr_width-1 downto 0))+3);
-      end if;
-
-      -- read 8 bit of data and write to gpio pin if stored at certain position
-      if (to_integer(a(addr_width-1 downto 0))=254) then
-        -- wioc(7 downto 0) <= dmem_s(to_integer(a(addr_width-1 downto 0)));
       end if;
   end process;
 end;
