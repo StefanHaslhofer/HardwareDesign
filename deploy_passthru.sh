@@ -1,1 +1,1 @@
-fujprog ulx3s.bit
+fujprog -j flash ulx3s_85f_passthru.bit
