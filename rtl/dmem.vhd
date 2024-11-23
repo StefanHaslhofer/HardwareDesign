@@ -4,10 +4,11 @@ use STD.TEXTIO.all;
 use IEEE.NUMERIC_STD_UNSIGNED.all;
 
 entity dmem is -- data memory
-  generic(addr_width: integer := 8);
-  generic(ESP32_OUT: integer := 254);
-  generic(ESP32_IN: integer := 255);
-  generic(addr_width: integer := 8);
+  generic(
+    ESP32_OUT: integer := 254;
+    ESP32_IN: integer := 255;
+    addr_width: integer := 8
+  );
   port(clk_25mhz: in  STD_ULOGIC;
        we:  in  STD_ULOGIC;
        sel: in  STD_ULOGIC_VECTOR(1 downto 0);
@@ -43,7 +44,7 @@ begin
             -- assert (a(1 downto 0) = "00") report "memory address alignment missmatch for word access" severity error;
           end if;
 
-          -- forward LSB from wd signal to gpio pin if a designated memory location has been written
+          -- forward least significant byte from wd signal to gpio pin if a designated memory location has been written
           if (to_integer(a(addr_width-1 downto 0))=ESP32_OUT) then
             wioc <= wd(0);
           end if;

@@ -1,10 +1,20 @@
-// the setup function runs once when you press reset or power the board
+#define INPUT_PIN 35 // GP13 on ULX3S <-> GPIO35 on ESP32
+
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(115200);
+
+  pinMode(INPUT_PIN, INPUT_PULLUP);
+  pinMode(LED_BUILTIN, OUTPUT); // LED_BUILTIN = 5, this is D22 on the ULX3S
 }
 
-// the loop function runs over and over again forever
 void loop() {
-  Serial.print("Hello world! Blink on port = ");
-  delay(1000);                       // wait for a second
+  int pinState = digitalRead(INPUT_PIN);
+
+  if (pinState == HIGH) {
+    digitalWrite(LED_BUILTIN, HIGH);
+  } else {
+    digitalWrite(LED_BUILTIN, LOW); 
+  }                   
+
+  delay(25);
 }
