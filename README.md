@@ -32,3 +32,5 @@ In contrast to my blinky example, the RISC-V core consists of multiple VHDL file
 
 In order to establish communication between the ESP32 and the core I needed to find possible connection. Accordion to the [ULX3S manual](https://github.com/emard/ulx3s/blob/master/doc/MANUAL.md) J1 pins GP,GN 11-13 are shared with the ESP32. I then allocated a designated area in the [memory](rtl/dmem.vhd) for data sent/recieved via those pin connections.
 
+TODO write about problems with programming esp32 (probably a power issue, also i "bricked" the ulx3s) and write about problem with PIN 26 ouput (was always high)
+Programm on esp32 was only running when passthru is applied (probably because some ports GPIOs are undefined?)

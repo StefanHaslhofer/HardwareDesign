@@ -25,7 +25,7 @@ entity top is -- top-level design for testing
        WriteData: buffer STD_ULOGIC_VECTOR(31 downto 0);
        DataAdr:   buffer STD_ULOGIC_VECTOR(31 downto 0);
        MemWrite:  buffer STD_ULOGIC;
-       gp, gn: inout STD_ULOGIC_VECTOR(27 downto 0);
+       gp: inout STD_ULOGIC_VECTOR(27 downto 0) := (others => 'Z');
        led: out STD_ULOGIC_VECTOR(7 downto 0));
 end;
 
