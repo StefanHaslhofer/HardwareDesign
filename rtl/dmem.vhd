@@ -46,7 +46,7 @@ begin
 
           -- forward least significant byte from wd signal to gpio pin if a designated memory location has been written
           if (to_integer(a(addr_width-1 downto 0))=ESP32_OUT) then
-            wioc <= wd(0);
+            -- wioc <= wd(0);
           end if;
         end if;
 

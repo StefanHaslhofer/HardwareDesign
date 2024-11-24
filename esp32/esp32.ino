@@ -2,19 +2,22 @@
 #define OUTPUT_PIN 26 // GP11 on ULX3S <-> GPIO26 on ESP32
 
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(9600);
 
+  delay(10000);
   pinMode(INPUT_PIN, INPUT_PULLUP);
   pinMode(OUTPUT_PIN, OUTPUT);
 }
 
 void loop() {
   int pinState = digitalRead(INPUT_PIN);
-  if (pinState == LOW) {
+
+  if (pinState == HIGH) {
     digitalWrite(OUTPUT_PIN, HIGH);
   } else {
+    
     digitalWrite(OUTPUT_PIN, LOW); 
-  }                   
+  }
 
-  delay(10);
+  delay(1000);
 }
