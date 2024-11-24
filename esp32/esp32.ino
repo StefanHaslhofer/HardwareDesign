@@ -1,20 +1,20 @@
 #define INPUT_PIN 35 // GP13 on ULX3S <-> GPIO35 on ESP32
+#define OUTPUT_PIN 26 // GP11 on ULX3S <-> GPIO26 on ESP32
 
 void setup() {
   Serial.begin(115200);
 
   pinMode(INPUT_PIN, INPUT_PULLUP);
-  pinMode(LED_BUILTIN, OUTPUT); // LED_BUILTIN = 5, this is D22 on the ULX3S
+  pinMode(OUTPUT_PIN, OUTPUT);
 }
 
 void loop() {
   int pinState = digitalRead(INPUT_PIN);
-
-  if (pinState == HIGH) {
-    digitalWrite(LED_BUILTIN, HIGH);
+  if (pinState == LOW) {
+    digitalWrite(OUTPUT_PIN, HIGH);
   } else {
-    digitalWrite(LED_BUILTIN, LOW); 
+    digitalWrite(OUTPUT_PIN, LOW); 
   }                   
 
-  delay(25);
+  delay(10);
 }
