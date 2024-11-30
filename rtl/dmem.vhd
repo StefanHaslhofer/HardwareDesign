@@ -53,11 +53,11 @@ begin
         -- write bit from gpio pin to a designated position in memory
         dmem_s(ESP32_IN)(0) := rioc;
         -- additionally light up led to verify that we recieved data
-        -- led_dbg <= rioc;
+        led_dbg <= rioc;
       end if;
 
       rd <= (others => '0');
-      wioc <= '1';
+      wioc <= '0';
       if (sel="00") then  -- 8 bit data width
         rd(7 downto 0)   <= dmem_s(to_integer(a(addr_width-1 downto 0)));
       elsif (sel="01") then -- 16 bit data width
