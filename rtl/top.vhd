@@ -56,7 +56,7 @@ architecture test of top is
          rd:  out STD_ULOGIC_VECTOR(31 downto 0);
          rioc:  in STD_ULOGIC;
          wioc:  out STD_ULOGIC;
-         led_dbg: out STD_ULOGIC);
+         led_dbg: out STD_ULOGIC_VECTOR(7 downto 0));
   end component;
     
   signal PC:        STD_ULOGIC_VECTOR(31 downto 0);
@@ -70,5 +70,5 @@ begin
   rvsingle: entity work.riscvpipeline(struct_neg) port map(clk_25mhz, reset, PC, Instr, MemWrite, DataAdr, MemSel, WriteData, ReadData);
   --rvsingle: riscvpipeline port map(clk, reset, PC, Instr, MemWrite, DataAdr, MemSel, WriteData, ReadData);
   imem1: imem port map(PC, Instr);
-  dmem1: dmem port map(clk_25mhz, MemWrite, MemSel, DataAdr, WriteData, ReadData, gp(11), gp(13), led(4));
+  dmem1: dmem port map(clk_25mhz, MemWrite, MemSel, DataAdr, WriteData, ReadData, gp(12), gp(13), led);
 end;

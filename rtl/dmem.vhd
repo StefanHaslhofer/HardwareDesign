@@ -17,7 +17,7 @@ entity dmem is -- data memory
        rd:  out STD_ULOGIC_VECTOR(31 downto 0);
        rioc:  in STD_ULOGIC;
        wioc:  out STD_ULOGIC;
-       led_dbg: out STD_ULOGIC);
+       led_dbg: out STD_ULOGIC_VECTOR(7 downto 0));
 end;
 
 architecture behave of dmem is
@@ -51,9 +51,9 @@ begin
         end if;
 
         -- write bit from gpio pin to a designated position in memory
-        dmem_s(ESP32_IN)(0) := rioc;
+        -- dmem_s(ESP32_IN)(0) := rioc;
         -- additionally light up led to verify that we recieved data
-        led_dbg <= rioc;
+        -- led_dbg <= rioc;
       end if;
 
       rd <= (others => '0');
