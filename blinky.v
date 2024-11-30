@@ -1,11 +1,14 @@
-module top(input clk_25mhz, 
-           input [6:0] btn, 
+module top(input clk_25mhz,
+           inout [27:0] gp,
            output [7:0] led);
 
-    assign led[6:0] = 0;
+    wire rioc;
+    assign rioc= gp[12];
+    assign gp[13] = 1;
 
     always @(posedge clk_25mhz) begin
-          led[7] <= btn[1];
+          led[6:0] <= 0;
+          led[7] <= rioc;
     end
 
 endmodule
