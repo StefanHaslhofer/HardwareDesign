@@ -34,3 +34,7 @@ In order to establish communication between the ESP32 and the core I needed to f
 
 TODO write about problems with programming esp32 (probably a power issue, also i "bricked" the ulx3s) and write about problem with PIN 26 ouput (was always high)
 Programm on esp32 was only running when passthru is applied (probably because some ports GPIOs are undefined?)
+
+Setting all leds to low hinders esp32 execution from starting
+
+PIN11 is always high

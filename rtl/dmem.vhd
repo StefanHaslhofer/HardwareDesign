@@ -17,7 +17,7 @@ entity dmem is -- data memory
        rd:  out STD_ULOGIC_VECTOR(31 downto 0);
        rioc:  in STD_ULOGIC;
        wioc:  out STD_ULOGIC;
-       led: out STD_ULOGIC_VECTOR(7 downto 0));
+       led_dbg: out STD_ULOGIC);
 end;
 
 architecture behave of dmem is
@@ -53,12 +53,11 @@ begin
         -- write bit from gpio pin to a designated position in memory
         dmem_s(ESP32_IN)(0) := rioc;
         -- additionally light up led to verify that we recieved data
-        led <= (others => '0');
-        led(3) <= rioc;
+        -- led_dbg <= rioc;
       end if;
 
       rd <= (others => '0');
-      wioc <= '0';
+      wioc <= '1';
       if (sel="00") then  -- 8 bit data width
         rd(7 downto 0)   <= dmem_s(to_integer(a(addr_width-1 downto 0)));
       elsif (sel="01") then -- 16 bit data width
