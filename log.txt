@@ -1,0 +1,15 @@
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2024  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.46+135 (git sha1 b2d78589e, clang++ 14.0.0-1ubuntu1.1 -fPIC -O3)
+
+-- Running command `ghdl --std=08 --ieee=synopsys wallMtoW.vhd wallFtoD.vhd wallEtoM.vhd wallDtoE.vhd top.vhd testbench.vhd signext.vhd riscvpipeline.vhd regfile.vhd mux4.vhd mux3.vhd mux2.vhd maindec.vhd imem.vhd hazardunit.vhd hazardunitext.vhd flopr.vhd extend.vhd enflopr.vhd dmem.vhd datapath.vhd controller.vhd banchunit.vhd alu.vhd aludec.vhd adder.vhd -e top; synth_ecp5 -json ../riscv.json' --
+
+1. Executing GHDL.
+Importing module top.
+Importing module riscvpipeline.
+Importing module imem.
+Importing module dmem_254_255_8.

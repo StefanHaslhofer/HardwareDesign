@@ -22,10 +22,11 @@ use IEEE.STD_LOGIC_1164.all;
 entity top is -- top-level design for testing
   port(clk_25mhz: in     STD_ULOGIC;
        reset:     in     STD_ULOGIC;
+       gn: inout STD_ULOGIC_VECTOR(27 downto 0);
        WriteData: buffer STD_ULOGIC_VECTOR(31 downto 0);
        DataAdr:   buffer STD_ULOGIC_VECTOR(31 downto 0);
        MemWrite:  buffer STD_ULOGIC;
-       gp, gn: inout STD_ULOGIC_VECTOR(27 downto 0);
+       gp: inout STD_ULOGIC_VECTOR(27 downto 0);
        led: out STD_ULOGIC_VECTOR(7 downto 0));
 end;
 

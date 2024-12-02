@@ -38,3 +38,7 @@ Programm on esp32 was only running when passthru is applied (probably because so
 Setting all leds to low hinders esp32 execution from starting
 
 PIN11 is always high
+
+esp32 EN pin is always dragged to low, which possibly has to do with VHDL assignment
+
+What does a PCLK Pin actually do?
