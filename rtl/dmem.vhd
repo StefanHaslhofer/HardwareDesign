@@ -14,20 +14,21 @@ entity dmem is -- data memory
        sel: in  STD_ULOGIC_VECTOR(1 downto 0);
        a:   in  STD_ULOGIC_VECTOR(31 downto 0);
        wd:  in  STD_ULOGIC_VECTOR(31 downto 0);
-       rd:  out STD_ULOGIC_VECTOR(31 downto 0);
        rioc:  in STD_ULOGIC;
+       rd:  out STD_ULOGIC_VECTOR(31 downto 0);
        wioc:  out STD_ULOGIC;
        led_dbg: out STD_ULOGIC_VECTOR(7 downto 0));
 end;
 
 architecture behave of dmem is
 begin
-  process (clk_25mhz, we, sel, wd, rioc) is
+  process (clk_25mhz, we, sel, wd) is
     -- 256 byte
     type ramtype is array (2**(addr_width)-1 downto 0) of STD_ULOGIC_VECTOR(7 downto 0);
     variable dmem_s: ramtype := (others => (others => '0'));
   begin
-    -- read or write memory
+      wioc <= '0';
+      -- read or write memory
       if rising_edge(clk_25mhz) then
         if (we='1') then
           if (sel="00") then  -- 8 bit data width
@@ -53,11 +54,11 @@ begin
         -- write bit from gpio pin to a designated position in memory
         -- dmem_s(ESP32_IN)(0) := rioc;
         -- additionally light up led to verify that we recieved data
-        -- led_dbg <= rioc;
+        led_dbg <= (others => '0');
+        led_dbg(7) <= rioc;
       end if;
 
       rd <= (others => '0');
-      wioc <= '0';
       if (sel="00") then  -- 8 bit data width
         rd(7 downto 0)   <= dmem_s(to_integer(a(addr_width-1 downto 0)));
       elsif (sel="01") then -- 16 bit data width
