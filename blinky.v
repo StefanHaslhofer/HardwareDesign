@@ -3,7 +3,6 @@ module top(input clk_25mhz,
            inout [27:0] gn,
            output [7:0] led);
 
-    wire rioc;
     assign gp[12] = 1;
 
     always @(posedge clk_25mhz) begin

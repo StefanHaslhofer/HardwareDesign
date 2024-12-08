@@ -4,3 +4,4 @@
 !rtl/mmiocontroller.vhd
 !rtl/dmem.vhd
 !rtl/top.vhd
+!blinky.vhd

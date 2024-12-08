@@ -32,13 +32,16 @@ In contrast to my blinky example, the RISC-V core consists of multiple VHDL file
 
 In order to establish communication between the ESP32 and the core I needed to find possible connection. Accordion to the [ULX3S manual](https://github.com/emard/ulx3s/blob/master/doc/MANUAL.md) J1 pins GP,GN 11-13 are shared with the ESP32. I then allocated a designated area in the [memory](rtl/dmem.vhd) for data sent/recieved via those pin connections.
 
-TODO write about problems with programming esp32 (probably a power issue, also i "bricked" the ulx3s) and write about problem with PIN 26 ouput (was always high)
-Programm on esp32 was only running when passthru is applied (probably because some ports GPIOs are undefined?)
+Note, that I have thought about implementing UART but in the end decided against it because of the problems I encountered even during the simple approach. 
 
-Setting all leds to low hinders esp32 execution from starting
+### Problems
 
-PIN11 is always high
+* One of the first major problems I encountered was a power issue. One of my USB cables could not support the board with a steady 3.3V voltage. Therefore, the ESP32 often shutdown during programming.
+* I also managed to brick my ulx3s board by having the ESP32 drive LED pin 5 immediatly after start, which put the ESP32 in some sort of readonly state. I was able to get out of the bricked state by wiring the correct pins to emulate a hard reset. 
+* In order to test communication between FPGA and ESP32 I set GP12, which serves as input to the ESP32, to high. The ESP32 in turn is running a small and simple program, that just forwards the input back to the FPGA (see [FPGA](blinky.vhd) and [ESP32](esp32/esp32.ino) code). Strangely, this seems to work in verilog but not in VHDL. In VHDL the pin for fpga-to-esp communication (GP12) is always high no matter what I assign.\
+Furthermore, the ESP32 does not start at all when I try to assign HIGH/LOW to GP and GN pins in the RISC-V code. Although this problem slightly differs from the one I just mentioned I suspect a similar route cause: There is some error in my understanding of VHDL I am simply not able to find without help.
 
-esp32 EN pin is always dragged to low, which possibly has to do with VHDL assignment
 
-What does a PCLK Pin actually do?
+### Questions
+
+1. What does a PCLK Pin actually do?
