@@ -22,7 +22,7 @@ To keep it short: very special thanks to [nandland.com](https://nandland.com/).
 ### Program the ESP32
 The ULX3S' on-board ESP32 can be programmed using the passthru bitstream. The whole process is described in the [ULX3S manual](https://github.com/emard/ulx3s/blob/master/doc/MANUAL.md).
 
-## Implementation
+## Initial Implementation
 This section highlights the most important core concepts of my project implementation as well as encountered problems and how I solved them.
 
 ### Core Concept
@@ -47,6 +47,15 @@ Furthermore, the ESP32 does not start at all when I try to assign HIGH/LOW to GP
 1. What does a PCLK Pin actually do?
 
 
+## Refined Implementation
+
+After reviewing the problems with the professor, we agreed a slimmed down version of the project will be sufficient due to the nature of the hardware issues.
+For the smaller version, it is enough to load a program into the RISC-V core's memory which should write to an MMIO area that drives the leds.
+At first, I wrote a short [assembly](riscvtest.s) program which writes 1 byte to the the memory address 255 (= connected to leds). The byte is then visualized bit-by-bit by the 8 leds on the ULX3S board.
+
+Afterwards, I implemented a more sophisticated counter in C which increments a value every second up to 255 starting with 0. If it reaches 255 it restarts.
+I chose C for the implementation because I was keen on exploring the process of getting a program implemented in a high level language running on the RISC-V.
+TODO write about C -> assembly -> hexcode https://sonic-rv.ics.jku.at/
+
 TODO 
 evtl. RiscV Speicher vergrößern
-code via https://sonic-rv.ics.jku.at/ in FPGA laden
