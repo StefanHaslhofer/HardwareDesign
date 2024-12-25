@@ -45,3 +45,8 @@ Furthermore, the ESP32 does not start at all when I try to assign HIGH/LOW to GP
 ### Questions
 
 1. What does a PCLK Pin actually do?
+
+
+TODO 
+evtl. RiscV Speicher vergrößern
+code via https://sonic-rv.ics.jku.at/ in FPGA laden

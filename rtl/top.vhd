@@ -22,11 +22,9 @@ use IEEE.STD_LOGIC_1164.all;
 entity top is -- top-level design for testing
   port(clk_25mhz: in     STD_ULOGIC;
        reset:     in     STD_ULOGIC;
-       gn: inout STD_ULOGIC_VECTOR(27 downto 0);
        WriteData: buffer STD_ULOGIC_VECTOR(31 downto 0);
        DataAdr:   buffer STD_ULOGIC_VECTOR(31 downto 0);
        MemWrite:  buffer STD_ULOGIC;
-       gp: inout STD_ULOGIC_VECTOR(27 downto 0);
        led: out STD_ULOGIC_VECTOR(7 downto 0));
 end;
 
@@ -54,9 +52,7 @@ architecture test of top is
          sel: in  STD_ULOGIC_VECTOR(1 downto 0);
          a:   in  STD_ULOGIC_VECTOR(31 downto 0);
          wd:  in  STD_ULOGIC_VECTOR(31 downto 0);
-         rioc:  in STD_ULOGIC;
          rd:  out STD_ULOGIC_VECTOR(31 downto 0);
-         wioc:  out STD_ULOGIC;
          led_dbg: out STD_ULOGIC_VECTOR(7 downto 0));
   end component;
     
@@ -71,5 +67,5 @@ begin
   rvsingle: entity work.riscvpipeline(struct_neg) port map(clk_25mhz, reset, PC, Instr, MemWrite, DataAdr, MemSel, WriteData, ReadData);
   --rvsingle: riscvpipeline port map(clk, reset, PC, Instr, MemWrite, DataAdr, MemSel, WriteData, ReadData);
   imem1: imem port map(PC, Instr);
-  dmem1: dmem port map(clk_25mhz, MemWrite, MemSel, DataAdr, WriteData, gn(12), ReadData, gp(12), led);
+  dmem1: dmem port map(clk_25mhz, MemWrite, MemSel, DataAdr, WriteData, ReadData, led);
 end;

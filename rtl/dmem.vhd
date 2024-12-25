@@ -5,8 +5,7 @@ use IEEE.NUMERIC_STD_UNSIGNED.all;
 
 entity dmem is -- data memory
   generic(
-    ESP32_OUT: integer := 254;
-    ESP32_IN: integer := 255;
+    LED_IN: integer := 255;
     addr_width: integer := 8
   );
   port(clk_25mhz: in  STD_ULOGIC;
@@ -14,9 +13,7 @@ entity dmem is -- data memory
        sel: in  STD_ULOGIC_VECTOR(1 downto 0);
        a:   in  STD_ULOGIC_VECTOR(31 downto 0);
        wd:  in  STD_ULOGIC_VECTOR(31 downto 0);
-       rioc:  in STD_ULOGIC;
        rd:  out STD_ULOGIC_VECTOR(31 downto 0);
-       wioc:  out STD_ULOGIC;
        led_dbg: out STD_ULOGIC_VECTOR(7 downto 0));
 end;
 
@@ -27,7 +24,6 @@ begin
     type ramtype is array (2**(addr_width)-1 downto 0) of STD_ULOGIC_VECTOR(7 downto 0);
     variable dmem_s: ramtype := (others => (others => '0'));
   begin
-      wioc <= '0';
       -- read or write memory
       if rising_edge(clk_25mhz) then
         if (we='1') then
@@ -45,17 +41,11 @@ begin
             -- assert (a(1 downto 0) = "00") report "memory address alignment missmatch for word access" severity error;
           end if;
 
-          -- forward least significant byte from wd signal to gpio pin if a designated memory location has been written
-          if (to_integer(a(addr_width-1 downto 0))=ESP32_OUT) then
-            -- wioc <= wd(0);
+          -- forward byte from wd signal to leds if a designated memory location has been written
+          if (to_integer(a(addr_width-1 downto 0))=LED_IN) then
+            led_dbg <= wd(7 downto 0);
           end if;
         end if;
-
-        -- write bit from gpio pin to a designated position in memory
-        -- dmem_s(ESP32_IN)(0) := rioc;
-        -- additionally light up led to verify that we recieved data
-        led_dbg <= (others => '0');
-        led_dbg(7) <= rioc;
       end if;
 
       rd <= (others => '0');
