@@ -55,7 +55,10 @@ At first, I wrote a short [assembly](riscvtest.s) program which writes 1 byte to
 
 Afterwards, I implemented a more sophisticated counter in C which increments a value every second up to 255 starting with 0. If it reaches 255 it restarts.
 I chose C for the implementation because I was keen on exploring the process of getting a program implemented in a high level language running on the RISC-V.
-TODO write about C -> assembly -> hexcode https://sonic-rv.ics.jku.at/
+In order to get the code running on the FPGA it has to be loaded into the memory with the following steps:
+1.  Write [code](LedCounter/main.c) in C.
+2.  Compile C to RISC-V assembly using the [riscv-gnu-toolchain](https://github.com/riscv-collab/riscv-gnu-toolchain).
+3.  Convert the assembly to hex instructions using [sonic-rv](https://sonic-rv.ics.jku.at/) and copy the result to the [.txt-file](rtl/riscvtest.txt) referenced in the [instruction memory](rtl/imem.vhd).
 
 TODO 
 evtl. RiscV Speicher vergrößern
