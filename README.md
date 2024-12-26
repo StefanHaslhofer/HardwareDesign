@@ -59,6 +59,3 @@ In order to get the code running on the FPGA it has to be loaded into the memory
 1.  Write [code](LedCounter/main.c) in C.
 2.  Compile C to RISC-V assembly using the [riscv-gnu-toolchain](https://github.com/riscv-collab/riscv-gnu-toolchain).
 3.  Convert the assembly to hex instructions using [sonic-rv](https://sonic-rv.ics.jku.at/) and copy the result to the [.txt-file](rtl/riscvtest.txt) referenced in the [instruction memory](rtl/imem.vhd).
-
-TODO 
-evtl. RiscV Speicher vergrößern
